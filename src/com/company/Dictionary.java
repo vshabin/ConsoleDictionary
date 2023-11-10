@@ -9,7 +9,7 @@ public class Dictionary {
     private String name;
     private String rule;
     private String path;
-    private HashMap<String, String> map= new HashMap<>();
+    private HashMap<String, String> map = new HashMap<>();
 
     public Dictionary(String name, String rule, String path) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Dictionary {
         this.path = path;
 
         File file = new File(path);
-        if(file.exists() && file.isFile()) {
+        if(file.isFile()) {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(path));
                 String line = reader.readLine();
@@ -40,7 +40,7 @@ public class Dictionary {
         return name;
     }
 
-    public Stream<String> show() {
+    public void show() {
         try {
             if(new File(path).exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -58,19 +58,17 @@ public class Dictionary {
         catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        return null;
     }
 
     public String find (String key) {
         if(!map.isEmpty()) {
-            if(map.get(key) != null)
+            if(map.get(key) != null) {
                 return map.get(key);
-            else {
+            } else {
 
                 return "Указанного слова нет в словаре";
             }
-        }
-        else {
+        } else {
             return "Словарь пуст";
         }
     }
@@ -87,7 +85,7 @@ public class Dictionary {
         return true;
     }
     public boolean remove(String key){
-        if(map.get(key)==null){
+        if(!map.containsKey(key)){
             return false;
         }
         map.remove(key);
@@ -96,16 +94,12 @@ public class Dictionary {
     }
     private void writeDictionary(){
         if(new File(path).exists()) {
-            ArrayList<String> keys = new ArrayList<String>(map.keySet());
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-                for(String k : keys) {
-                    String value =  map.get(k);
-                    writer.write(k + "-" + value + "\n");
+            try(BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+                for(var entry : map.entrySet()) {
+                    //String value =  map.get(k);
+                    writer.write(entry.getKey() + "-" + entry.getValue() + "\n");
                 }
-                writer.close();
-            }
-            catch(Exception ex) {
+            } catch(Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }

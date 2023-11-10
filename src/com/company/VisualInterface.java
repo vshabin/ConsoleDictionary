@@ -1,9 +1,6 @@
 package com.company;
 
-import java.io.File;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.stream.Stream;
 
 
 public class VisualInterface {
@@ -13,12 +10,12 @@ public class VisualInterface {
     public VisualInterface(){
         System.out.println("Добро пожаловать в словарь!!!");
         scan= new Scanner(System.in);
-        SelectDictionary();
+        selectDictionary();
     }
-    private void SelectDictionary(){
+    private void selectDictionary(){
         String dicTypeInput = "";
 
-        while(true) {
+        while (true) {
             System.out.println("Выберите словарь(укажите соответствующую цифру):\n\t1 - 4 латинские буквы\n\t2 - 5 цифр\n\t0 - Выход");
 
             dicTypeInput = scan.next();
@@ -29,7 +26,7 @@ public class VisualInterface {
                 case "2" -> dict = new Dictionary("5 цифр", "[0-9]{5}", "dic2");
                 default -> System.out.println("Указанного словаря не существует");
             }
-            if(dicTypeInput.equals("1")|| dicTypeInput.equals("2")){
+            if(dicTypeInput.equals("1")|| dicTypeInput.equals("2")) {
                 break;
             }
         }
@@ -37,7 +34,6 @@ public class VisualInterface {
     }
     private void showFunctionMenu(){
         String actionInput = "";
-        String[] menuItems = {"0", "1", "2", "3", "4"};
         while(!actionInput.equals("0")) {
             System.out.println("Словарь: " + dict.getName());
             System.out.println("Выберите действие(укажите соответствующую цифру):\n\t1 - Просмотреть словарь\n\t2 - Найти слово\n\t" +
@@ -46,7 +42,7 @@ public class VisualInterface {
             actionInput = scan.next();
             switch (actionInput){
                 case "0":
-                    SelectDictionary();
+                    selectDictionary();
                     break;
                 case "1":
                     showDict();
