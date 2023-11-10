@@ -22,15 +22,18 @@ public class VisualInterface {
 
             switch (dicTypeInput) {
                 case "0" -> System.exit(0);
-                case "1" -> dict = new Dictionary("4 латинские буквы", "[a-zA-Z]{4}", "dic1");
-                case "2" -> dict = new Dictionary("5 цифр", "[0-9]{5}", "dic2");
+                case "1" -> {
+                    dict = new Dictionary("4 латинские буквы", "[a-zA-Z]{4}", "dic1");
+                    showFunctionMenu();
+                }
+                case "2" -> {
+                    dict = new Dictionary("5 цифр", "[0-9]{5}", "dic2");
+                    showFunctionMenu();
+                }
                 default -> System.out.println("Указанного словаря не существует");
             }
-            if(dicTypeInput.equals("1")|| dicTypeInput.equals("2")) {
-                break;
-            }
         }
-        showFunctionMenu();
+
     }
     private void showFunctionMenu(){
         String actionInput = "";
@@ -42,8 +45,7 @@ public class VisualInterface {
             actionInput = scan.next();
             switch (actionInput){
                 case "0":
-                    selectDictionary();
-                    break;
+                    return;
                 case "1":
                     showDict();
                     break;
